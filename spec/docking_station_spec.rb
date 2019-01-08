@@ -9,4 +9,11 @@ describe DockingStation do
   expect(subject.release_bike.working?).to eq true
   end
 
+  it { is_expected.to respond_to(:dock).with(1).argument }
+
+  it 'expects bike attribute of station to equal docked bike' do
+    subject.dock(Bike.new)
+  expect(subject.bike.class).to eq Bike
+  end
+
 end
