@@ -5,8 +5,11 @@ describe DockingStation do
 
   it { is_expected.to respond_to :release_bike }
 
-  it 'expects release_bike equals a new bike' do
-  expect(subject.release_bike.working?).to eq true
+  it 'expects release_bike to return a bike when a (working) bike is at the station' do
+    station_with_bike = DockingStation.new
+    bike_at_station = Bike.new
+    station_with_bike.dock(bike_at_station)
+    expect(station_with_bike.release_bike).to eq(bike_at_station)
   end
 
   it { is_expected.to respond_to(:dock).with(1).argument }
@@ -16,7 +19,7 @@ describe DockingStation do
     expect(subject.bike.class).to eq Bike
   end
 
-  it 'expects docking station to respond to has_bike?' do
-    expect(subject).to respond_to (:has_bike?)
+  it 'expects new docking station with no bikes to raise error when releasing a bike' do
+    expect { DockingStation.new.release_bike }.to raise_error("There are no bikes")
   end
 end
