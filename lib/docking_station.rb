@@ -9,10 +9,10 @@ class DockingStation
   def dock(bike)
     @bike = bike
   end
-
+=begin
   def initialize
     @bike = bike
   end
-
+=end
   attr_reader :bike
 end

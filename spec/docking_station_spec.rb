@@ -1,5 +1,5 @@
 require 'docking_station'
-require 'bike'
+#require 'bike'
 
 describe DockingStation do
 
@@ -13,7 +13,10 @@ describe DockingStation do
 
   it 'expects bike attribute of station to equal docked bike' do
     subject.dock(Bike.new)
-  expect(subject.bike.class).to eq Bike
+    expect(subject.bike.class).to eq Bike
   end
 
+  it 'expects docking station to respond to has_bike?' do
+    expect(subject).to respond_to (:has_bike?)
+  end
 end
