@@ -22,4 +22,9 @@ describe DockingStation do
   it 'expects new docking station with no bikes to raise error when releasing a bike' do
     expect { DockingStation.new.release_bike }.to raise_error("There are no bikes")
   end
+
+  it 'will raise an error if attempting to dock a bike in an occupied station' do
+    occupied_dock = DockingStation.new("bike")
+    expect { occupied_dock.dock("second_bike") }.to raise_error("Already occupied")
+  end
 end

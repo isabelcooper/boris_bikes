@@ -1,4 +1,4 @@
-require 'bike.rb'
+require 'bike'
 
 describe Bike do
 
