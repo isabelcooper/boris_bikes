@@ -15,16 +15,18 @@ describe DockingStation do
   it { is_expected.to respond_to(:dock).with(1).argument }
 
   it 'expects bike attribute of station to equal docked bike' do
-    subject.dock(Bike.new)
-    expect(subject.bike.class).to eq Bike
+    unique_bike = Bike.new
+    subject.dock(unique_bike)
+    expect(subject.docked_bikes).to include(unique_bike)
   end
 
   it 'expects new docking station with no bikes to raise error when releasing a bike' do
     expect { DockingStation.new.release_bike }.to raise_error("There are no bikes")
   end
 
-  it 'will raise an error if attempting to dock a bike in an occupied station' do
-    occupied_dock = DockingStation.new("bike")
-    expect { occupied_dock.dock("second_bike") }.to raise_error("Already occupied")
+  it 'will raise an error if attempting to dock a bike in a full station' do
+    occupied_dock = DockingStation.new()
+    20.times { occupied_dock.dock Bike.new }
+    expect { occupied_dock.dock("21st Bike") }.to raise_error("Station is full")
   end
 end
