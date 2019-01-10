@@ -3,7 +3,9 @@ require 'docking_station'
 describe DockingStation do
   before(:each) do
     @docking_station = DockingStation.new
+    @capacity = DockingStation::DEFAULT_CAPACITY
     @newbike = Bike.new
+    DockingStation.send(:public, *DockingStation.private_instance_methods)
   end
 
   it 'expects release_bike to return a bike when a (working) bike is at the station' do
@@ -21,8 +23,8 @@ describe DockingStation do
   end
 
   it 'will raise an error if attempting to dock a bike in a full station' do
-    20.times { @docking_station.dock @newbike }
-    expect { @docking_station.dock("21st bike") }.to raise_error("Station is full")
+    @capacity.times { @docking_station.dock @newbike }
+    expect { @docking_station.dock("Overkill Bike") }.to raise_error("Station is full")
   end
 
   it 'will give false if the docking station is not full' do
@@ -30,8 +32,15 @@ describe DockingStation do
  end
 
  it 'will give true if the docking station is full' do
-   20.times { @docking_station.dock @newbike }
+   @capacity.times { @docking_station.dock @newbike }
    expect(@docking_station.full?).to eq true
  end
+
+  it 'raises an error if attempting to insert an 11th bike into a station with a capacity of 10' do
+    limited_capacity_station = DockingStation.new(10)
+    10.times { limited_capacity_station.dock @newbike }
+    expect { limited_capacity_station.dock("Overkill Bike") }.to raise_error("Station is full")
+  end
+
 
 end
