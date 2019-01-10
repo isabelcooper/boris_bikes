@@ -24,9 +24,9 @@ class DockingStation
     @docked_bikes.count >= @capacity
   end
 
- def is_empty?
-   @docked_bikes.empty?
- end
+  def is_empty?
+    @docked_bikes.empty?
+  end
 
 end
 

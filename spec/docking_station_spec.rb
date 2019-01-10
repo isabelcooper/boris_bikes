@@ -42,5 +42,10 @@ describe DockingStation do
     expect { limited_capacity_station.dock("Overkill Bike") }.to raise_error("Station is full")
   end
 
+  # it 'condition method asks for user input and ' do
+  #   @docking_station.dock(@newbike)
+  #   expect(@docking_station.condition).to eq("Working")
+  # end
 
-end
+
+ end
