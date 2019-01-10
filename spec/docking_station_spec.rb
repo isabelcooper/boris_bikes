@@ -10,7 +10,7 @@ describe DockingStation do
     @docking_station.dock(@newbike)
     expect(@docking_station.release_bike).to eq(@newbike)
   end
-  
+
   it 'expects bike attribute of station to equal docked bike' do
     @docking_station.dock(@newbike)
     expect(@docking_station.docked_bikes).to include(@newbike)
@@ -24,4 +24,14 @@ describe DockingStation do
     20.times { @docking_station.dock @newbike }
     expect { @docking_station.dock("21st bike") }.to raise_error("Station is full")
   end
+
+  it 'will give false if the docking station is not full' do
+   expect(@docking_station.full?).to eq false
+ end
+
+ it 'will give true if the docking station is full' do
+   20.times { @docking_station.dock @newbike }
+   expect(@docking_station.full?).to eq true
+ end
+
 end
